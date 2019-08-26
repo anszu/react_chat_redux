@@ -1,22 +1,27 @@
-import React, { useContext } from 'react';
-import usePostAPI from '../Hooks/usePostAPI';
+import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { AppContext } from '../AppContext';
+
+import { selectUserName } from '../../../actions';
+import usePostAPI from '../Hooks/usePostAPI';
+
 import './__styles__/AddUserName.scss';
 
-const AddUserName = ({ handleUserSubmit }) => {
-    // get username from context and call post api
-    const { UserName } = useContext(AppContext);
+const AddUserName = ({ userName, selectUserName }) => {
     const {
         values,
         handleChange,
-        handleSubmitWithCallback,
         handleClick
-    } = usePostAPI({ creator: UserName }, false, handleUserSubmit);
+    } = usePostAPI('', { creator: userName });
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        selectUserName(values.creator);
+    };
 
     // render form
     return (
-        <form className="AddUserNameForm" onSubmit={handleSubmitWithCallback}>
+        <form className="AddUserNameForm" onSubmit={handleSubmit}>
             <input
                 type="text"
                 name="creator"
@@ -25,14 +30,26 @@ const AddUserName = ({ handleUserSubmit }) => {
                 onChange={handleChange}
                 onClick={handleClick}
             />
-            <button type="submit" className="AddUserNameButton btn btn-light">></button>
+            <button type="submit"
+                className="AddUserNameButton btn btn-light"
+                disabled={values.creator.trim() === ''}>
+                >
+            </button>
         </form>
     );
 };
 
 // prop definitions
 AddUserName.propTypes = {
-    handleUserSubmit: PropTypes.func
+    userName: PropTypes.string,
+    selectUserName: PropTypes.func
 };
 
-export default AddUserName;
+// redux state to props
+const mapStateToProps = state => {
+    return ({
+        userName: state.userName
+    });
+};
+
+export default connect(mapStateToProps, { selectUserName })(AddUserName);

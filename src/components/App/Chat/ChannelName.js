@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import useGetAPI from '../Hooks/useGetAPI';
-import { AppContext } from '../AppContext';
 import * as CONST from '../constants';
+
 import './__styles__/ChannelName.scss';
 
-const ChannelName = () => {
-    // get channel id from context and call get hook
-    const { ChannelId } = useContext(AppContext);
-    const { values } = useGetAPI(`${CONST.API_PARAM_CHANNELS}/${ChannelId}`);
+const ChannelName = ({ channelId }) => {
+    // call get hook
+    const { values } = useGetAPI(`${CONST.API_PARAM_CHANNELS}/${channelId}`);
 
     // display chat name and topic
     return (
@@ -25,7 +26,12 @@ const ChannelName = () => {
 
 // prop definitions
 ChannelName.propTypes = {
-    APIParam: PropTypes.number
+    channelId: PropTypes.number
 };
 
-export default ChannelName;
+// redux map state to props
+const mapStateToProps = state => {
+    return { channelId: state.channelId };
+};
+
+export default connect(mapStateToProps)(ChannelName);

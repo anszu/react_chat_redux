@@ -1,16 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import * as CONST from '../constants';
 import useGetAPI from '../Hooks/useGetAPI';
-import { AppContext } from '../AppContext';
-import PropTypes from 'prop-types';
+
 import './__styles__/Content.scss';
 
-const Content = ({ children }) => {
-    // get channel id from context
-    const { ChannelId } = useContext(AppContext);
-
+const Content = ({ channelId, children }) => {
     // call get hook
-    const { values } = useGetAPI(`${CONST.API_PARAM_CHANNELS}/${ChannelId}/${CONST.API_PARAM_MESSAGES}`,
+    const { values } = useGetAPI(`${CONST.API_PARAM_CHANNELS}/${channelId}/${CONST.API_PARAM_MESSAGES}`,
         CONST.REFRESH_MESSAGES);
 
     // call rendering prop function
@@ -23,7 +22,12 @@ const Content = ({ children }) => {
 
 // prop definitions
 Content.propTypes = {
+    channelId: PropTypes.number,
     children: PropTypes.func
 };
 
-export default Content;
+const mapStateToProps = state => {
+    return { channelId: state.channelId };
+};
+
+export default connect(mapStateToProps)(Content);
