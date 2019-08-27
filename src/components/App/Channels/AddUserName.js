@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { selectUserName } from '../../../actions';
 import usePostAPI from '../Hooks/usePostAPI';
+import * as CONST from '../constants';
 
 import './__styles__/AddUserName.scss';
 
@@ -21,21 +22,24 @@ const AddUserName = ({ userName, selectUserName }) => {
 
     // render form
     return (
-        <form className="AddUserNameForm" onSubmit={handleSubmit}>
-            <input
-                type="text"
-                name="creator"
-                value={values.creator}
-                className="AddUserNameInput form-control"
-                onChange={handleChange}
-                onClick={handleClick}
-            />
-            <button type="submit"
-                className="AddUserNameButton btn btn-light"
-                disabled={values.creator.trim() === ''}>
-                >
-            </button>
-        </form>
+        <div className="AddUserName">
+            {CONST.CHANGE_USERNAME}
+            <form className="AddUserNameForm" onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="creator"
+                    value={values.creator}
+                    className="AddUserNameInput form-control"
+                    onChange={handleChange}
+                    onClick={handleClick}
+                />
+                <button type="submit"
+                    className="AddUserNameButton btn btn-light"
+                    disabled={values.creator.trim() === ''}>
+                    >
+                </button>
+            </form>
+        </div>
     );
 };
 

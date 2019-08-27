@@ -36,7 +36,10 @@ const Channels = ({ channelId, userName, selectChannel }) => {
     return (
         <div className="Channels">
             <div className="ChannelsBar">
-                <div className="ChannelsUser">{CONST.DISPLAY_USERNAME}{userName}</div>
+                <div className="ChannelsUser">
+                    {CONST.DISPLAY_USERNAME}{userName}
+                </div>
+                <AddUserName/>
                 { values &&
                     <>
                         <ul className="ChannelsList" id="ChannelsList">
@@ -47,9 +50,7 @@ const Channels = ({ channelId, userName, selectChannel }) => {
                                             item={item}
                                             channelId={channelId}
                                             handleClick={handleClick}
-                                            key={item.id}>
-                                            <AddUserName/>
-                                        </ChannelItem>
+                                            key={item.id}/>
                                     );
                                 }
                             })}

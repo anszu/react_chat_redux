@@ -21,8 +21,9 @@ export const NEW_CHANNEL_SUCCESS = 'Angelegt!';
 export const NEW_CHANNEL_ERROR = 'Fehler!';
 export const NEW_CHANNEL_INPUT = 'Neuer Channel: ';
 
-// username display
+// username
 export const DISPLAY_USERNAME = 'eingeloggt als ';
+export const CHANGE_USERNAME = 'Usernamen ändern:';
 
 // message input button
 export const BUTTON_MESSAGE_INPUT = 'Absenden';
