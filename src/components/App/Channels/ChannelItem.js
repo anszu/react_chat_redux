@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import './__styles__/ChannelItem.scss';
 
 const ChannelItem = ({ item, channelId, handleClick }) => {

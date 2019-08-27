@@ -26,6 +26,7 @@ Content.propTypes = {
     children: PropTypes.func
 };
 
+// redux map state to props
 const mapStateToProps = state => {
     return { channelId: state.channelId };
 };
