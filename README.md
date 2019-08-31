@@ -64,4 +64,4 @@ This fork is using Redux for sharing states while the original repository is usi
 
 Shared states for this chat system are `channelId` and `userName` which are used by several components and also have to be changed by some of them.
 
-![Concept](https://github.com/anszu/react_chat_redux/blob/master/screenshots/shared_state.png)
+![Concept](https://github.com/anszu/react_chat_redux/blob/master/screenshots/concept.png)
