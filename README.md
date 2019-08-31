@@ -158,8 +158,6 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from '../../reducers';
 
-import './App.scss';
-
 const App = () => {
     // call subcomponents with context provider
     return (
