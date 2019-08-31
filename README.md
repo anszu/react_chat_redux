@@ -60,7 +60,7 @@ An extented documenation can be found in the [react_chat Repo](https://github.co
 
 ## Redux vs. React Context
 
-This fork is using Redux for sharing states while the original repository is using the React Context directly. 
+This fork is using Redux for sharing states while the [original repository](https://github.com/anszu/react_chat) is using the React Context directly. 
 
 Shared states for this chat system are `channelId` and `userName` which are used by several components and also have to be changed by some of them. The functions that are called to change those states are called `selectChannel` and `selectUserName`.
 
@@ -82,9 +82,8 @@ const App = () => {
 ```
 
 #### Redux
-In Redux `channelId` and `userName` will be defined as Reducers in [src/reducers/index.js](https://github.com/anszu/react_chat_redux/blob/master/src/reducers/index.js) with the same presets. 
-The `channelIdReducer` should update and return the `channelId` whenever the `CHANNEL_SELECTED` action is fired, while the `userNameReducer` update and returns the `userName` if the `USERNAME_SELECTED` action was triggerd.
-
+In Redux `channelId` and `userName` will be defined as reducers in [src/reducers/index.js](https://github.com/anszu/react_chat_redux/blob/master/src/reducers/index.js) with the same presets. 
+The `channelIdReducer` should update and return the `channelId` whenever the `CHANNEL_SELECTED` action is fired, while the `userNameReducer` updates and returns the `userName` if the `USERNAME_SELECTED` action was triggerd.
 
 ```javascript
 import { combineReducers } from 'redux';
@@ -148,11 +147,11 @@ export const selectUserName = (userName) => {
 };
 ```
 
-### Main Implementation
+### Provide shared state
 #### React Context
 
-A Context Object and a Context Provider Object are defined and exported in [AppContext.js](https://github.com/anszu/react_chat/blob/master/src/AppContext.js).  
-_(A Consumer Object is not needed here, as consumer components will use the `useContext` Hook, which requires the main Context Object.)_ 
+A Context object and a Context Provider object are defined and exported in [AppContext.js](https://github.com/anszu/react_chat/blob/master/src/AppContext.js).  
+_(A Consumer object is not needed here, as consumer components will use the `useContext` Hook, which requires the main Context object.)_ 
 
 ```javascript
 // create context objects
@@ -160,7 +159,7 @@ export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
 ```
 
-The [App](https://github.com/anszu/react_chat/blob/master/src/components/App/index.js) component is importing the `AppContextProvider` Object and wraps it around its child components. This way `channelId` and `userName` as well as the functions to change them: `selectChannel` and `selectUserName` are passed down to the child components and can be used by them.  
+The [App](https://github.com/anszu/react_chat/blob/master/src/components/App/index.js) component is importing the `AppContextProvider` object and wraps it around its child components. This way `channelId` and `userName` as well as the functions to change them: `selectChannel` and `selectUserName` are passed down to the child components and can be used by them.  
 
 ```javascript
 import { AppContextProvider } from '../../AppContext';
@@ -194,6 +193,45 @@ const App = () => {
 ```
 
 ### Redux
+Finally the [App](https://github.com/anszu/react_chat_redux/blob/master/src/components/App/index.js) component also gets involved in the Redux version. It imports `Provider` from `react-redux` and `createStore` from `redux` and the reducers that have been defined in [src/reducers/index.js](https://github.com/anszu/react_chat_redux/blob/master/src/reducers/index.js).
+`Provider` will be wrapped around the child components and also sets a store with the defined reducers that can be used by them. 
+
+```javascript
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from '../../reducers';
+
+import './App.scss';
+
+const App = () => {
+    // call subcomponents with context provider
+    return (
+        <div className="App">
+            <Provider store={createStore(reducers)}>
+                <Channels/>
+                <Chat/>
+            </Provider>
+        </div>
+    );
+};
+```
+
+### Consume shared state
+#### React Context
+
+In this application the Context will be accessed via the [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext) Hook that simply assigns it to a constant.
+
+Here's a example from the [ChannelName](https://github.com/anszu/react_chat/blob/master/src/components/App/Chat/ChannelName.js) component:
+```javascript
+import { AppContext } from '../../../AppContext';
+
+const ChannelName = () => {
+    // get channel id from context
+    const { channelId } = useContext(AppContext);
+    ...
+}
+```
+
 
 
 
