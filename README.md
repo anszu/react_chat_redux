@@ -263,11 +263,11 @@ export default connect(mapStateToProps, { selectUserName })(AddUserName);
 
 ### Conclusion
 
-React Context is pretty easy to implement and doesn't require a lot of coding, while Redux and the conventions around it, require folders for reducers and actions as well as the usage of an external libary that has to be imported.
+_React Context is pretty easy to implement and doesn't require a lot of coding, while Redux and the conventions around it, require folders for reducers and actions as well as the usage of an external libary that has to be imported.
 This is not a very large project and requires just two values and it's modifier functions to be made accessible within different components.
 Under those circumstances it's fine to define all that's needed directly in the main component and pass it further down via React Context. But it also become's obvious that things might get out of hand quickly if the project scales and new conventions regarding what's in the store and where to define it have to be made up.
-This is already solved in Redux with it's commonly known conventions in place.
+This is already solved in Redux with it's commonly known conventions in place._
 
-So the decision of what to use can be boiled down to the requirements and size of the project or the need for convention and extra tooling. There have been a lot of articles on this questions, like this [one](https://frontarm.com/james-k-nelson/when-context-replaces-redux/).  
+_So the decision of what to use can be boiled down to the requirements and size of the project or the need for convention and extra tooling. There have been a lot of articles on this questions, like this [one](https://frontarm.com/james-k-nelson/when-context-replaces-redux/)._  
 
-Personally I think for this project React Context is fine to use.
+_Personally I think for this project React Context is fine to use._
