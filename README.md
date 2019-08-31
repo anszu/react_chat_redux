@@ -263,11 +263,15 @@ export default connect(mapStateToProps, { selectUserName })(AddUserName);
 
 ### Conclusion
 
-_React Context is pretty easy to implement and doesn't require a lot of coding, while Redux and the conventions around it, require folders for reducers and actions as well as the usage of an external libary that has to be imported.
+React Context is pretty easy to implement and doesn't require a lot of coding, while Redux and the conventions around it, require folders for reducers and actions as well as the usage of an external libary that has to be imported.
 This is not a very large project and requires just two values and it's modifier functions to be made accessible within different components.
 Under those circumstances it's fine to define all that's needed directly in the main component and pass it further down via React Context. But it also become's obvious that things might get out of hand quickly if the project scales and new conventions regarding what's in the store and where to define it have to be made up.
-This is already solved in Redux with it's commonly known conventions in place._
+This is already solved in Redux with it's commonly known conventions in place.
 
-_So the decision of what to use can be boiled down to the requirements and size of the project or the need for convention and extra tooling. There have been a lot of articles on this questions, like this [one](https://frontarm.com/james-k-nelson/when-context-replaces-redux/)._  
+As quoted by [Sebastian Markbage](https://www.academind.com/learn/react/redux-vs-context-api/#will-react-s-context-api-replace-redux) (React Team) React Context (currently) is not built for high-frequency updates.
 
-_Personally I think for this project React Context is fine to use._
+_My personal summary is that new context is ready to be used for low frequency unlikely updates (like locale/theme). It’s also good to use it in the same way as old context was used. I.e. for static values and then propagate updates through subscriptions. It’s not ready to be used as a replacement for all Flux-like state propagation. --- Sebastian Markbage_
+
+There are a lot of other interseting articles on this topic like [this](https://frontarm.com/james-k-nelson/when-context-replaces-redux/) or [this one](https://blog.softwaremill.com/react-context-api-vs-redux-the-eternal-dichotomy-24639907fc98).
+
+
