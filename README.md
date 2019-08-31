@@ -272,6 +272,6 @@ As quoted by [Sebastian Markbage](https://www.academind.com/learn/react/redux-vs
 
 > My personal summary is that new context is ready to be used for low frequency unlikely updates (like locale/theme). It’s also good to use it in the same way as old context was used. I.e. for static values and then propagate updates through subscriptions. It’s not ready to be used as a replacement for all Flux-like state propagation. --- Sebastian Markbage
 
-There are a lot of other interseting articles on this topic like [this](https://frontarm.com/james-k-nelson/when-context-replaces-redux/) or [this one](https://blog.softwaremill.com/react-context-api-vs-redux-the-eternal-dichotomy-24639907fc98).
+There are a lot of other interesting articles on this topic like [this](https://frontarm.com/james-k-nelson/when-context-replaces-redux/) or [this one](https://blog.softwaremill.com/react-context-api-vs-redux-the-eternal-dichotomy-24639907fc98).
 
 
