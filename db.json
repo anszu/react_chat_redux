@@ -14,11 +14,6 @@
       "id": 3,
       "name": "Smalltalk",
       "topic": "everything else"
-    },
-    {
-      "name": "Neuer Chat",
-      "topic": "tolles Thema",
-      "id": 4
     }
   ],
   "messages": [
@@ -49,34 +44,6 @@
       "timestamp": "2019-8-20 16:26:45",
       "channelId": "2",
       "id": 9
-    },
-    {
-      "content": "sddssdsd",
-      "creator": "anna",
-      "timestamp": "2019-8-26 14:6:10",
-      "channelId": "3",
-      "id": 10
-    },
-    {
-      "content": "klksdd",
-      "creator": "anna",
-      "timestamp": "2019-8-26 14:15:20",
-      "channelId": "2",
-      "id": 11
-    },
-    {
-      "content": "sddsd",
-      "creator": "anna",
-      "timestamp": "2019-8-26 14:15:46",
-      "channelId": "3",
-      "id": 12
-    },
-    {
-      "content": "hallo",
-      "creator": "anika",
-      "timestamp": "2019-8-28 9:28:55",
-      "channelId": "3",
-      "id": 13
     }
   ]
 }

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { selectUserName } from '../../../actions';
-import usePostAPI from '../Hooks/usePostAPI';
-import * as CONST from '../constants';
+import usePostAPI from '../../Hooks/usePostAPI';
+import * as CONST from '../../../constants';
 
 import './__styles__/AddUserName.scss';
 

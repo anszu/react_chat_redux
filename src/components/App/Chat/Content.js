@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as CONST from '../constants';
-import useGetAPI from '../Hooks/useGetAPI';
+import * as CONST from '../../../constants';
+import useGetAPI from '../../Hooks/useGetAPI';
 
 import './__styles__/Content.scss';
 

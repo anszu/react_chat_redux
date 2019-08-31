@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import AddUserName from './AddUserName';
 import ChannelItem from './ChannelItem';
 import AddChannel from './AddChannel';
-import useGetAPI from '../Hooks/useGetAPI';
-import * as CONST from '../constants';
+import useGetAPI from '../../Hooks/useGetAPI';
+import * as CONST from '../../../constants';
 import { selectChannel } from '../../../actions';
 
 import './__styles__/Channels.scss';
