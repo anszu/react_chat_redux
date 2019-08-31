@@ -66,10 +66,93 @@ Shared states for this chat system are `channelId` and `userName` which are used
 
 ![Concept](https://github.com/anszu/react_chat_redux/blob/master/screenshots/concept.png)
 
+### Shared State/ Reducers
+#### React Context
+
+The [App](https://github.com/anszu/react_chat/blob/master/src/components/App/index.js) component is defining `channelId` and `userName` as State via the `useState` Hook with preset values.
+
+```javascript
+...
+const App = () => {
+    // define states
+    const [channelId, setChannelId] = useState(1);
+    const [userName, setUserName] = useState('guest');
+    ...
+}
+```
+
+#### Redux
+In Redux `channelId` and `userName` will be defined as Reducers in [src/reducers/index.js](https://github.com/anszu/react_chat_redux/blob/master/src/reducers/index.js) with the same presets. 
+The `channelIdReducer` should update and return the `channelId` whenever the `CHANNEL_SELECTED` action is fired, while the `userNameReducer` update and returns the `userName` if the `USERNAME_SELECTED` action was triggerd.
+
+
+```javascript
+import { combineReducers } from 'redux';
+
+const channelIdReducer = (channelId = 1, action) => {
+    if (action.type === 'CHANNEL_SELECTED') return action.payload;
+    return channelId;
+};
+
+const userNameReducer = (userName = 'guest', action) => {
+    if (action.type === 'USERNAME_SELECTED') return action.payload;
+    return userName;
+};
+
+export default combineReducers({
+    channelId: channelIdReducer,
+    userName: userNameReducer
+});
+```
+
+### Change Shared State/ Actions
+#### React Context
+
+The functions to change the shared state `channelId` and `userName` are also defined in the [App](https://github.com/anszu/react_chat/blob/master/src/components/App/index.js) component, both will trigger a change for each of those states.
+
+```javascript
+...
+const App = () => {
+    // define states
+    const [channelId, setChannelId] = useState(1);
+    const [userName, setUserName] = useState('guest');
+
+    // reset state for channel id
+    const selectChannel = (channelId) => {
+        setChannelId(channelId);
+    };
+
+    // reset state for username
+    const selectUserName = (userName) => {
+        setUserName(userName);
+    };
+}
+```
+
+#### Redux
+In Redux the functionality to change the shared state are defined as actions within [src/actions/index.js](https://github.com/anszu/react_chat_redux/blob/master/src/actions/index.js). Both functions will return an object consisting of a `type`that can be either `CHANNEL_SELECTED` or `USERNAME_SELECTED` and a `payload` that holds the new value that was passed to it.
+
+```javascript
+export const selectChannel = (channelId) => {
+    return ({
+        type: 'CHANNEL_SELECTED',
+        payload: channelId
+    });
+};
+
+export const selectUserName = (userName) => {
+    return ({
+        type: 'USERNAME_SELECTED',
+        payload: userName
+    });
+};
+```
+
 ### Main Implementation
 #### React Context
 
-A Context Object and a Context Provider Object are defined and exported in [AppContext.js](https://github.com/anszu/react_chat/blob/master/src/AppContext.js). A Consumer Object is not needed here, as consumer components will use the `useContext` Hook, which requires the main Context Object. 
+A Context Object and a Context Provider Object are defined and exported in [AppContext.js](https://github.com/anszu/react_chat/blob/master/src/AppContext.js).  
+_(A Consumer Object is not needed here, as consumer components will use the `useContext` Hook, which requires the main Context Object.)_ 
 
 ```javascript
 // create context objects
@@ -77,16 +160,26 @@ export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
 ```
 
-The [App](https://github.com/anszu/react_chat/blob/master/src/components/App/index.js) component is importing the AppContextProvider Object and wraps it around its child components.
+The [App](https://github.com/anszu/react_chat/blob/master/src/components/App/index.js) component is importing the `AppContextProvider` Object and wraps it around its child components. This way `channelId` and `userName` as well as the functions to change them: `selectChannel` and `selectUserName` are passed down to the child components and can be used by them.  
 
 ```javascript
 import { AppContextProvider } from '../../AppContext';
-...
 
 const App = () => {
+    // define states
+    const [channelId, setChannelId] = useState(1);
+    const [userName, setUserName] = useState('guest');
 
-   ...
-   
+    // reset state for channel id
+    const selectChannel = (channelId) => {
+        setChannelId(channelId);
+    };
+
+    // reset state for username
+    const selectUserName = (userName) => {
+        setUserName(userName);
+    };
+
     // call subcomponents with context provider
     return (
         <div className="App">
@@ -98,8 +191,9 @@ const App = () => {
         </div>
     );
 };
-
-export default App;
 ```
+
+### Redux
+
 
 
