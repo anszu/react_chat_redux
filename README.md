@@ -19,7 +19,7 @@ An extented documenation can be found in the [react_chat Repo](https://github.co
 
 This fork is using Redux for sharing states while the [original repository](https://github.com/anszu/react_chat) is using the React Context directly. 
 
-Shared states for this chat system are `channelId` and `userName` which are used by several components and also have to be changed by some of them. The functions that are called to change those states are called `selectChannel` and `selectUserName`.
+Shared states for this chat system are `channelId` and `userName` which are used by several components and also have to be changed by some of them. The functions that are called to change those states are `selectChannel` and `selectUserName`.
 
 ![Concept](https://github.com/anszu/react_chat_redux/blob/master/screenshots/concept.png)
 
