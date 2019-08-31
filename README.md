@@ -178,7 +178,7 @@ const App = () => {
 
 In this application the Context will be accessed via the [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext) Hook that simply assigns it to a constant.
 
-Here's a example from the [ChannelName](https://github.com/anszu/react_chat/blob/master/src/components/App/Chat/ChannelName.js) component:
+Here's an example from the [ChannelName](https://github.com/anszu/react_chat/blob/master/src/components/App/Chat/ChannelName.js) component:
 ```javascript
 import { AppContext } from '../../../AppContext';
 
@@ -187,6 +187,24 @@ const ChannelName = () => {
     const { channelId } = useContext(AppContext);
     ...
 }
+```
+
+#### Redux
+
+Usage within the [ChannelName](https://github.com/anszu/react_chat_redux/blob/master/src/components/App/Chat/ChannelName.js) component:
+```javascript
+import { connect } from 'react-redux';
+
+const ChannelName = ({ channelId }) => {
+    ...
+};
+
+// redux map state to props
+const mapStateToProps = state => {
+    return { channelId: state.channelId };
+};
+
+export default connect(mapStateToProps)(ChannelName);
 ```
 
 
