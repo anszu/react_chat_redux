@@ -1,6 +1,6 @@
 # Slack like chat system based on React
 
-Fork of [react_chat](https://github.com/anszu/react_chat) to demonstrate differences between usage of Redux vs. React Context. 
+Fork of [react_chat](https://github.com/anszu/react_chat) to demonstrate differences between usage of [Redux](https://redux.js.org/) vs. [React Context](https://reactjs.org/docs/context.html). 
 
 ## Getting Started
 
@@ -60,6 +60,8 @@ An extented documenation can be found in the [react_chat Repo](https://github.co
 
 ## Redux vs. React Context
 
-This fork is using Redux for sharing states while the original repository is using the react Context directly. 
+This fork is using Redux for sharing states while the original repository is using the React Context directly. 
 
-Shared states 
+Shared states for this chat system are `channelId` and `userName` which are used by several components and also have to be changed by them.
+
+![Concept](https://github.com/anszu/react_chat/blob/master/screenshots/shared_state.png)
