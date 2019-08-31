@@ -62,6 +62,44 @@ An extented documenation can be found in the [react_chat Repo](https://github.co
 
 This fork is using Redux for sharing states while the original repository is using the React Context directly. 
 
-Shared states for this chat system are `channelId` and `userName` which are used by several components and also have to be changed by some of them.
+Shared states for this chat system are `channelId` and `userName` which are used by several components and also have to be changed by some of them. The functions that are called to change those states are called `selectChannel` and `selectUserName`.
 
 ![Concept](https://github.com/anszu/react_chat_redux/blob/master/screenshots/concept.png)
+
+### Main Implementation
+#### React Context
+
+A Context Object and a Context Provider Object are defined and exported in [AppContext.js](https://github.com/anszu/react_chat/blob/master/src/AppContext.js). A Consumer Object is not needed here, as consumer components will use the `useContext` Hook, which requires the main Context Object. 
+
+```javascript
+// create context objects
+export const AppContext = React.createContext({});
+export const AppContextProvider = AppContext.Provider;
+```
+
+The [App](https://github.com/anszu/react_chat/blob/master/src/components/App/index.js) component is importing the AppContextProvider Object and wraps it around its child components.
+
+```javascript
+import { AppContextProvider } from '../../AppContext';
+...
+
+const App = () => {
+
+   ...
+   
+    // call subcomponents with context provider
+    return (
+        <div className="App">
+            <AppContextProvider value={{
+                channelId, userName, selectChannel, selectUserName }}>
+                <Channels/>
+                <Chat/>
+            </AppContextProvider>
+        </div>
+    );
+};
+
+export default App;
+```
+
+
