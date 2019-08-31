@@ -23,7 +23,7 @@ Shared states for this chat system are `channelId` and `userName` which are used
 
 ![Concept](https://github.com/anszu/react_chat_redux/blob/master/screenshots/concept.png)
 
-### Shared State/ Reducers
+### Shared State/ reducers
 #### React Context
 
 The [App](https://github.com/anszu/react_chat/blob/master/src/components/App/index.js) component is defining `channelId` and `userName` as State via the `useState` Hook with preset values.
@@ -61,7 +61,7 @@ export default combineReducers({
 });
 ```
 
-### Change Shared State/ Actions
+### Change Shared State/ actions
 #### React Context
 
 The functions to change the shared state `channelId` and `userName` are also defined in the [App](https://github.com/anszu/react_chat/blob/master/src/components/App/index.js) component, both will trigger a change for each of those states.
@@ -173,7 +173,7 @@ const App = () => {
 };
 ```
 
-### Consume shared state
+### Consume shared state/ reducers
 #### React Context
 
 In this application the Context will be accessed via the [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext) Hook that simply assigns it to a constant.
@@ -190,8 +190,10 @@ const ChannelName = () => {
 ```
 
 #### Redux
+With Redux shared state gets accessed by connecting the component to the store via the `connect` functionality. By also passing a `mapStateToProps` function to connect, the shared state can be used as a prop within the component.
 
 Usage within the [ChannelName](https://github.com/anszu/react_chat_redux/blob/master/src/components/App/Chat/ChannelName.js) component:
+
 ```javascript
 import { connect } from 'react-redux';
 
@@ -206,7 +208,68 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps)(ChannelName);
 ```
+### Change shared state/ perform actions
+#### React Context
 
+As mentioned [here](https://github.com/anszu/react_chat_redux#react-context-1) the functions to changes `channelId`or `userName` are also stored in React Context and passed on to the child components via the `AppContextProvider`. Thi way the can be invoked by using the `useContect` Hook as well, similar to the shared state.
 
+Usage within the [AddUserName](https://github.com/anszu/react_chat/blob/master/src/components/App/Channels/AddUserName.js) component:
 
+```javascript
+import { AppContext } from '../../../AppContext';
 
+const AddUserName = () => {
+    // get channel id, username and changechannelinfo function from context
+    const { userName, selectUserName } = useContext(AppContext);
+
+    ...
+    
+    // new username was submitted
+    const handleSubmit = () => {
+        event.preventDefault();
+        selectUserName(values.creator);
+    };
+    
+    ...
+}
+```
+
+#### Redux
+The functionality to change state has to be imported by importing [src/actions/index.js](https://github.com/anszu/react_chat_redux/blob/master/src/actions/index.js) first. Besides a `mapStateToProps` function, the action that should be called also has to be passed to the `connect` function and can be used within the component afterwads.
+
+Example [AddUserName](https://github.com/anszu/react_chat_redux/blob/master/src/components/App/Channels/AddUserName.js) component:
+
+```javascript
+import { connect } from 'react-redux';
+import { selectUserName } from '../../../actions';
+
+const AddUserName = ({ userName, selectUserName }) => {
+   
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        selectUserName(values.creator);
+    };
+    
+    ...
+};
+
+// redux state to props
+const mapStateToProps = state => {
+    return ({
+        userName: state.userName
+    });
+};
+
+export default connect(mapStateToProps, { selectUserName })(AddUserName);
+```
+
+### Conclusion
+
+React Context is pretty easy to implement and doesn't require a lot of coding, while Redux and the conventions around it, require folders for reducers and actions as well as the usage of an external libary that has to be imported.
+This is not a very large project and requires just two values and it's modifier functions to be made accessible within different components.
+Under those circumstances it's fine to define all that's needed directly in the main component and pass it further down via React Context. But it also become's obvious that things might get out of hand quickly if the project scales and new conventions regarding what's in the store and where to define it have to be made up.
+This is already solved in Redux with it's commonly known conventions in place.
+
+So the decision of what to use can be boiled down to the requirements and size of the project or the need for convention and extra tooling. There have been a lot of articles on this questions, like this [one](https://frontarm.com/james-k-nelson/when-context-replaces-redux/).  
+
+Personally I think for this project React Context is fine to use.
